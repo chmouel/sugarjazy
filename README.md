@@ -10,6 +10,8 @@ Usually play nicely with <https://github.com/uber-go/zap> when using the ["Sugar
 pip3 install -U sugarjazy
 ```
 
+[`python-dateutil`](https://dateutil.readthedocs.io/en/stable/) is an optional dependency, if the package is not installed you will not be be able to show the log timestamps.
+
 ## Screenshot
 
 ![screenshot](./.github/screenshot.png)
