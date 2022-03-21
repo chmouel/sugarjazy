@@ -40,87 +40,102 @@ class bcolors:
         return f'\033[38;5;{color}m'
 
 
-def parse(fp, argp):
+def jline(line, argp):
     colors = {}
-    for i in fp.read().split("\n"):
-        if not i.strip():
-            continue
-        try:
-            jeez = json.loads(i)
-        except json.decoder.JSONDecodeError:
-            if not argp.filter_level:
-                print(i)
-            continue
+    if not line.strip():
+        return
+    try:
+        jeez = json.loads(line)
+    except json.decoder.JSONDecodeError:
+        if not argp.filter_level:
+            print(line)
+        return
 
-        kl = None
-        if 'severity' in jeez:
-            kl = 'severity'
-        elif 'level' in jeez:
-            kl = 'level'
+    kl = None
+    if 'severity' in jeez:
+        kl = 'severity'
+    elif 'level' in jeez:
+        kl = 'level'
 
-        if argp.filter_level:
-            if not kl:
-                continue
-            if jeez[kl].lower() not in [
-                    x.lower() for x in argp.filter_level.split(",")
-            ]:
-                continue
+    if argp.filter_level:
+        if not kl:
+            return
+        if jeez[kl].lower() not in [
+                x.lower() for x in argp.filter_level.split(",")
+        ]:
+            return
 
-        km = None
-        if 'msg' in jeez:
-            km = 'msg'
-        elif 'message' in jeez:
-            km = 'message'
+    km = None
+    if 'msg' in jeez:
+        km = 'msg'
+    elif 'message' in jeez:
+        km = 'message'
 
-        keve = None
-        if 'event' in jeez:
-            keve = 'event'
-        elif 'knative.dev/key' in jeez:
-            keve = 'knative.dev/key'
-        elif 'caller' in jeez:
-            keve = 'caller'
-        eventcolor = bcolors.ENDC
-        chevent = ""
-        if not argp.disable_event_colouring and keve:
-            if not jeez[keve] in colors:
-                colors[jeez[keve]] = bcolors.random256()
-            eventcolor = colors[jeez[keve]]
-            chevent = f"{eventcolor}{bcolors.ENDC}"
-        # highlight string in jeez[km] with a regexp
-        if km and argp.regexp_highlight:
-            jeez[km] = re.sub(
-                "(" + argp.regexp_highlight + ")",
-                bcolors.as_string(argp.regexp_color) + r'\1' + bcolors.ENDC,
-                jeez[km])
+    keve = None
+    if 'event' in jeez:
+        keve = 'event'
+    elif 'knative.dev/key' in jeez:
+        keve = 'knative.dev/key'
+    elif 'caller' in jeez:
+        keve = 'caller'
+    eventcolor = bcolors.ENDC
+    chevent = ""
+    if not argp.disable_event_colouring and keve:
+        if not jeez[keve] in colors:
+            colors[jeez[keve]] = bcolors.random256()
+        eventcolor = colors[jeez[keve]]
+        chevent = f"{eventcolor}{bcolors.ENDC}"
+    # highlight string in jeez[km] with a regexp
+    if km and argp.regexp_highlight:
+        jeez[km] = re.sub(
+            "(" + argp.regexp_highlight + ")",
+            bcolors.as_string(argp.regexp_color) + r'\1' + bcolors.ENDC,
+            jeez[km])
 
-        kt = None
-        if 'ts' in jeez:
-            kt = 'ts'
-        elif 'timeformat' in jeez:
-            kt = 'timeformat'
-        elif 'timestamp' in jeez:
-            kt = 'timestamp'
+    kt = None
+    if 'ts' in jeez:
+        kt = 'ts'
+    elif 'timeformat' in jeez:
+        kt = 'timeformat'
+    elif 'timestamp' in jeez:
+        kt = 'timestamp'
 
-        if kl and jeez[kl].lower() == "info":
-            color = bcolors.GREEN
-        elif kl and (jeez[kl].lower() == "warning"
-                     or jeez[kl].lower() == "warn"):
-            color = bcolors.YELLOW
-        elif kl and jeez[kl].lower() == "error":
-            color = bcolors.RED
+    if kl and jeez[kl].lower() == "info":
+        color = bcolors.GREEN
+    elif kl and (jeez[kl].lower() == "warning" or jeez[kl].lower() == "warn"):
+        color = bcolors.YELLOW
+    elif kl and jeez[kl].lower() == "error":
+        color = bcolors.RED
+    else:
+        color = bcolors.CYAN
+
+    dts = ""
+    if kt and not argp.hide_timestamp:
+        if isinstance(jeez[kt], float):
+            dt = datetime.datetime.fromtimestamp(jeez[kt])
         else:
-            color = bcolors.CYAN
+            dt = dtparse.parse(jeez[kt])
+        dts = f'{bcolors.MAGENTA}{dt.strftime(argp.timeformat)}{bcolors.ENDC} '
+    print(
+        f"{chevent}{color}{jeez[kl].upper(): <7}{bcolors.ENDC} {dts}{jeez[km]}"
+    )
 
-        dts = ""
-        if kt and not argp.hide_timestamp:
-            if isinstance(jeez[kt], float):
-                dt = datetime.datetime.fromtimestamp(jeez[kt])
-            else:
-                dt = dtparse.parse(jeez[kt])
-            dts = f'{bcolors.MAGENTA}{dt.strftime(argp.timeformat)}{bcolors.ENDC} '
-        print(
-            f"{chevent}{color}{jeez[kl].upper(): <7}{bcolors.ENDC} {dts}{jeez[km]}"
-        )
+
+def stream(argp):
+    buff = ''
+    try:
+        while True:
+            buff += sys.stdin.read(1)
+            if buff.endswith('\n'):
+                jline(buff[:-1], argp)
+                buff = ''
+    except KeyboardInterrupt:
+        sys.stdout.flush()
+
+
+def parse(fp, argp):
+    for line in fp.read().split("\n"):
+        jline(line, argp)
 
 
 def args(sysargs: list) -> argparse.Namespace:
@@ -148,6 +163,11 @@ def args(sysargs: list) -> argparse.Namespace:
         "-F",
         help="filter levels separated by commas, eg: info,debug")
 
+    parser.add_argument("--stream",
+                        "-s",
+                        action='store_true',
+                        help="wait for input stream")
+
     parser.add_argument("--regexp-color",
                         default='CYAN',
                         help=r"Regexp highlight color")
@@ -166,6 +186,10 @@ def main():
             with open(f, encoding='utf-8') as ff:
                 parse(ff, aargp)
         sys.exit()
+    if aargp.stream:
+        stream(aargp)
+        sys.exit()
+
     parse(sys.stdin, aargp)
 
 
