@@ -48,7 +48,8 @@ def parse(fp, argp):
         try:
             jeez = json.loads(i)
         except json.decoder.JSONDecodeError:
-            print(i)
+            if not argp.filter_level:
+                print(i)
             continue
 
         kl = None
@@ -56,6 +57,14 @@ def parse(fp, argp):
             kl = 'severity'
         elif 'level' in jeez:
             kl = 'level'
+
+        if argp.filter_level:
+            if not kl:
+                continue
+            if jeez[kl].lower() not in [
+                    x.lower() for x in argp.filter_level.split(",")
+            ]:
+                continue
 
         km = None
         if 'msg' in jeez:
@@ -68,7 +77,8 @@ def parse(fp, argp):
             keve = 'event'
         elif 'knative.dev/key' in jeez:
             keve = 'knative.dev/key'
-
+        elif 'caller' in jeez:
+            keve = 'caller'
         eventcolor = bcolors.ENDC
         chevent = ""
         if not argp.disable_event_colouring and keve:
@@ -108,7 +118,9 @@ def parse(fp, argp):
             else:
                 dt = dtparse.parse(jeez[kt])
             dts = f'{bcolors.MAGENTA}{dt.strftime(argp.timeformat)}{bcolors.ENDC} '
-        print(f"{color}{jeez[kl]: <7}{bcolors.ENDC} {dts}{chevent}{jeez[km]}")
+        print(
+            f"{chevent}{color}{jeez[kl].upper(): <7}{bcolors.ENDC} {dts}{jeez[km]}"
+        )
 
 
 def args(sysargs: list) -> argparse.Namespace:
@@ -117,20 +129,24 @@ def args(sysargs: list) -> argparse.Namespace:
         "--timeformat",
         default=DEFAULT_TIMEFORMAT,
         help=
-        "timeformat default only to the hour minute. Use \"%%Y-%%m-%%d %%H:%%M:%%S\" if you want to add the year"
+        "timeformat default only to the hour:minute:second. Use \"%%Y-%%m-%%d %%H:%%M:%%S\" if you want to add the year"
     )
     parser.add_argument(
         "--regexp-highlight",
         '-r',
         help=
-        r"Highlight a regexp in message, for example: \"Failed:\s*\d+, Cancelled\s*\d+\""
-    )
+        r'Highlight a regexp in message, eg: "Failed:\s*\d+, Cancelled\s*\d+"')
     parser.add_argument(
         "--disable-event-colouring",
         action='store_true',
         help=
         "Add a  with a color to the eventid to easily identify which event belongs to which"
     )
+
+    parser.add_argument(
+        "--filter-level",
+        "-F",
+        help="filter levels separated by commas, eg: info,debug")
 
     parser.add_argument("--regexp-color",
                         default='CYAN',
