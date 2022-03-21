@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sugarjazy"
-version = "0.4.0"
+version = "0.5.0"
 description = "Parse json logs output from uber-go/zap library nicely"
 authors = ["Chmouel Boudjnah <chmouel@chmouel.com>"]
 maintainers = ["Chmouel Boudjnah <chmouel@chmouel.com>"]
