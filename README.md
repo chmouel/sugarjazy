@@ -2,7 +2,7 @@
 
 sugarjazy is a simple tool to parse json logs and output them in a nice format with nice colors.
 
-Usually play nicely with <https://github.com/uber-go/zap> when using the ["Sugar"](https://pkg.go.dev/go.uber.org/zap#Logger.Sugar) log.
+Usually play nicely with <https://github.com/uber-go/zap> when using the ["Sugar"](https://pkg.go.dev/go.uber.org/zap#Logger.Sugar) logger output.
 
 ## Installation
 
