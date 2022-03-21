@@ -1,9 +1,10 @@
 [tool.poetry]
 name = "sugarjazy"
-version = "0.1.0"
+version = "0.2.0"
 description = "Parse json logs output from uber-go/zap library nicely"
 authors = ["Chmouel Boudjnah <chmouel@chmouel.com>"]
 maintainers = ["Chmouel Boudjnah <chmouel@chmouel.com>"]
+readme = "README.md"
 license = "Apache-2.0"
 keywords = ["logs", "tekton", "kubernetes"]
 homepage = "https://github.com/chmouel/sugarjazy"
