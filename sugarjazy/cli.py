@@ -90,7 +90,7 @@ def parse(fp, argp):
         print(f"{color}{jeez[kl]: <7}{bcolors.ENDC} {dts}{jeez[km]}")
 
 
-def args(sysargs: list) -> argparse.ArgumentParser:
+def args(sysargs: list) -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--timeformat",
