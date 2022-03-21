@@ -32,9 +32,11 @@ pip install --user sugarjazy
 
 ## Usage
 
+You can simply pipe your logs vai `kubectl logs podname|sugarjazy` or specify a log file.
+
 ```shell
-% sugarjazy --help
-usage: jazy [-h] [--timeformat TIMEFORMAT] [--regexp-highlight REGEXP_HIGHLIGHT] [--regexp-color REGEXP_COLOR] [--hide-timestamp] [files ...]
+% poetry run sugarjazy --help
+usage: sugarjazy [-h] [--timeformat TIMEFORMAT] [--regexp-highlight REGEXP_HIGHLIGHT] [--disable-event-colouring] [--regexp-color REGEXP_COLOR] [--hide-timestamp] [files ...]
 
 positional arguments:
   files
@@ -45,10 +47,14 @@ options:
                         timeformat default only to the hour minute. Use "%Y-%m-%d %H:%M:%S" if you want to add the year
   --regexp-highlight REGEXP_HIGHLIGHT, -r REGEXP_HIGHLIGHT
                         Highlight a regexp in message, for example: \"Failed:\s*\d+, Cancelled\s*\d+\"
+  --disable-event-colouring
+                        Add a  with a color to the eventid to easily identify which event belongs to which
   --regexp-color REGEXP_COLOR
                         Regexp highlight color
   --hide-timestamp, -H  don't show timestamp
   ```
+
+Sugarjazy try to identify the same event and add all events on the same colors to the chevron character ().
 
 ## Copyright
 

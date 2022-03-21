@@ -5,8 +5,10 @@
 import argparse
 import datetime
 import json
+import random
 import re
 import sys
+
 try:
     import dateutil.parser as dtparse
     dtparseb = "store_true"
@@ -32,8 +34,14 @@ class bcolors:
     def as_string(cls, s: str) -> str:
         return getattr(cls, s.upper())
 
+    @staticmethod
+    def random256() -> str:
+        color = random.randint(0o22, 0o231)
+        return f'\033[38;5;{color}m'
+
 
 def parse(fp, argp):
+    colors = {}
     for i in fp.read().split("\n"):
         if not i.strip():
             continue
@@ -55,6 +63,19 @@ def parse(fp, argp):
         elif 'message' in jeez:
             km = 'message'
 
+        keve = None
+        if 'event' in jeez:
+            keve = 'event'
+        elif 'knative.dev/key' in jeez:
+            keve = 'knative.dev/key'
+
+        eventcolor = bcolors.ENDC
+        chevent = ""
+        if not argp.disable_event_colouring and keve:
+            if not jeez[keve] in colors:
+                colors[jeez[keve]] = bcolors.random256()
+            eventcolor = colors[jeez[keve]]
+            chevent = f"{eventcolor}{bcolors.ENDC}"
         # highlight string in jeez[km] with a regexp
         if km and argp.regexp_highlight:
             jeez[km] = re.sub(
@@ -87,7 +108,7 @@ def parse(fp, argp):
             else:
                 dt = dtparse.parse(jeez[kt])
             dts = f'{bcolors.MAGENTA}{dt.strftime(argp.timeformat)}{bcolors.ENDC} '
-        print(f"{color}{jeez[kl]: <7}{bcolors.ENDC} {dts}{jeez[km]}")
+        print(f"{color}{jeez[kl]: <7}{bcolors.ENDC} {dts}{chevent}{jeez[km]}")
 
 
 def args(sysargs: list) -> argparse.Namespace:
@@ -104,6 +125,13 @@ def args(sysargs: list) -> argparse.Namespace:
         help=
         r"Highlight a regexp in message, for example: \"Failed:\s*\d+, Cancelled\s*\d+\""
     )
+    parser.add_argument(
+        "--disable-event-colouring",
+        action='store_true',
+        help=
+        "Add a  with a color to the eventid to easily identify which event belongs to which"
+    )
+
     parser.add_argument("--regexp-color",
                         default='CYAN',
                         help=r"Regexp highlight color")
