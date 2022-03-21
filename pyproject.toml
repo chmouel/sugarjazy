@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "sugarjazy"
+version = "0.1.0"
+description = "Parse json logs output from uber-go/zap library nicely"
+authors = ["Chmouel Boudjnah <chmouel@chmouel.com>"]
+maintainers = ["Chmouel Boudjnah <chmouel@chmouel.com>"]
+license = "Apache-2.0"
+keywords = ["logs", "tekton", "kubernetes"]
+homepage = "https://github.com/chmouel/sugarjazy"
+repository = "https://github.com/chmouel/sugarjazy"
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+]
+
+include = [
+    "LICENSE"
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[tool.poetry.scripts]
+sugarjazy = "sugarjazy.cli:main"
+
+[tool.poetry.urls]
+issues = "https://github.com/chmouel/sugarjazy/issues"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
