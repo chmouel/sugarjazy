@@ -6,11 +6,25 @@ Usually play nicely with <https://github.com/uber-go/zap> when using the ["Sugar
 
 ## Installation
 
-```shell
-pip3 install -U sugarjazy
+There is not many dependencies on this package but [`python-dateutil`](https://dateutil.readthedocs.io/en/stable/) is an optional dependency, if the package is not installed you will not be be able to show the log timestamps.
+
+### Arch
+
+You can install it [from aur](https://aur.archlinux.org/packages/sugarjazy) with your aurhelper, like yay :
+
+```
+yay -S sugarjazy
 ```
 
-[`python-dateutil`](https://dateutil.readthedocs.io/en/stable/) is an optional dependency, if the package is not installed you will not be be able to show the log timestamps.
+### pip
+
+With pip from pypi - <https://pypi.org/project/sugarjaz/>
+
+```
+pip install --user sugarjazy
+```
+
+(make sure $HOME/.local/bin is in your PATH)
 
 ## Screenshot
 

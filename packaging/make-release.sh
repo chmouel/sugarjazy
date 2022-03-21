@@ -53,4 +53,4 @@ poetry build -f sdist
 gh release create ${VERSION} ./dist/${PKGNAME}-${VERSION}.tar.gz
 poetry publish -u __token__ -p $(pass show pypi/token)
 
-#./packaging/aur/build.sh
+./packaging/aur/build.sh
