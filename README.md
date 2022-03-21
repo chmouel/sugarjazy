@@ -18,7 +18,7 @@ yay -S sugarjazy
 
 ### pip
 
-With pip from pypi - <https://pypi.org/project/sugarjaz/>
+With pip from pypi - <https://pypi.org/project/sugarjazy/>
 
 ```
 pip install --user sugarjazy
