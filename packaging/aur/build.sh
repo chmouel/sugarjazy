@@ -26,9 +26,12 @@ shift $((OPTIND-1))
 
 VERSION=${1:-${POETRY_NAME_VERSION#* }}
 
-sudo docker build -f ./packaging/aur/Dockerfile -t ${image_name} .
+SUDO=sudo
+[[ ${OSTYPE:-""} == darwin* ]] && SUDO=
 
-sudo docker run --rm \
+${SUDO} docker build -f ./packaging/aur/Dockerfile -t ${image_name} .
+
+${SUDO} docker run --rm \
            -v ~/.config/copr:/home/builder/.config/copr \
            -v "${gitdir}":/src \
            -v $SSH_AUTH_SOCK:/ssh-agent --env SSH_AUTH_SOCK=/ssh-agent \
