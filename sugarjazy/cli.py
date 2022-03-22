@@ -16,6 +16,7 @@ except ImportError:
     dtparseb = "store_false"
 
 DEFAULT_TIMEFORMAT = '%H:%M:%S'
+CURRENT_EVENT_CHAR = "˃"
 
 
 # pylint: disable=too-few-public-methods
@@ -84,7 +85,7 @@ def jline(line, argp):
         if not jeez[keve] in colors:
             colors[jeez[keve]] = bcolors.random256()
         eventcolor = colors[jeez[keve]]
-        chevent = f"{eventcolor}{bcolors.ENDC}"
+        chevent = f"{eventcolor}{CURRENT_EVENT_CHAR}{bcolors.ENDC}"
     # highlight string in jeez[km] with a regexp
     if km and argp.regexp_highlight:
         jeez[km] = re.sub(
@@ -117,7 +118,7 @@ def jline(line, argp):
             dt = dtparse.parse(jeez[kt])
         dts = f'{bcolors.MAGENTA}{dt.strftime(argp.timeformat)}{bcolors.ENDC} '
     print(
-        f"{chevent}{color}{jeez[kl].upper(): <7}{bcolors.ENDC} {dts}{jeez[km]}"
+        f"{color}{jeez[kl].upper(): <7}{bcolors.ENDC} {chevent} {dts}{jeez[km]}"
     )
 
 
