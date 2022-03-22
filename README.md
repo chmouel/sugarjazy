@@ -32,7 +32,14 @@ pip install --user sugarjazy
 
 ## Usage
 
-You can simply pipe your logs vai `kubectl logs podname|sugarjazy` or specify a log file.
+You can use `sugarjazy` in multiple ways :
+
+- By piping your logs: `kubectl logs podname|sugarjazy`
+- By streamining your logs: `kubectl logs -f podname|sugarjazy -s`
+- Or with the file (or multiples files) directly: `sugarjazy /tmp/file1.log /tmp/file2.log`
+
+
+### Arguments:
 
 ```shell
 usage: sugarjazy [-h] [--timeformat TIMEFORMAT]
@@ -63,7 +70,10 @@ options:
   --hide-timestamp, -H  don't show timestamp
 ```
 
-Sugarjazy try to identify the same event and add all events on the same colors to the chevron character ().
+## *`NOTE`*
+
+- Sugarjazy tries hard to identify the same event and add all events on the same colors to the chevron character ().
+- The json fields are not standardize. It works well with `knative` based controllers like `tekton` or others but that may be buggy for other ones.
 
 ## Copyright
 
