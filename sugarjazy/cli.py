@@ -43,8 +43,13 @@ class bcolors:
 
 def jline(line, argp):
     colors = {}
+    prefix = ""
     if not line.strip():
         return
+
+    if argp.kail:
+        prefix = line.split(":")[0]
+        line = line.replace(prefix, '')[1:].strip()
     try:
         jeez = json.loads(line)
     except json.decoder.JSONDecodeError:
@@ -117,6 +122,8 @@ def jline(line, argp):
         else:
             dt = dtparse.parse(jeez[kt])
         dts = f'{bcolors.MAGENTA}{dt.strftime(argp.timeformat)}{bcolors.ENDC} '
+    if argp.kail and argp.kail_prefix:
+        print(prefix)
     print(
         f"{color}{jeez[kl].upper(): <7}{bcolors.ENDC} {chevent} {dts}{jeez[km]}"
     )
@@ -169,6 +176,13 @@ def args(sysargs: list) -> argparse.Namespace:
                         action='store_true',
                         help="wait for input stream")
 
+    parser.add_argument("--kail",
+                        "-k",
+                        action='store_true',
+                        help="assume streaming logs from kail (https://github.com/boz/kail)")
+    parser.add_argument("--kail-prefix",
+                        action='store_true',
+                        help="wether to print the prefix of the pods/container when using the kail mode ")
     parser.add_argument("--regexp-color",
                         default='CYAN',
                         help=r"Regexp highlight color")
@@ -182,6 +196,11 @@ def args(sysargs: list) -> argparse.Namespace:
 
 def main():
     aargp = args(sys.argv[1:])
+    if aargp.kail and aargp.files:
+        print("kail mode only work on stream")
+        sys.exit(1)
+    elif aargp.kail:
+        aargp.stream = True
     if aargp.files:
         for f in aargp.files:
             with open(f, encoding='utf-8') as ff:

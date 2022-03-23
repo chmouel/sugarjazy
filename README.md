@@ -37,7 +37,9 @@ You can use `sugarjazy` in multiple ways :
 - By piping your logs: `kubectl logs podname|sugarjazy`
 - By streamining your logs: `kubectl logs -f podname|sugarjazy -s`
 - Or with the file (or multiples files) directly: `sugarjazy /tmp/file1.log /tmp/file2.log`
-
+- By using kail from https://github.com/boz/kail with the `--kail` flag, by
+  default it will not print the prefix of the pods/container unless you specify
+  the option `--kail-prefix`. The `--kail` always assume streaming implicitely.
 
 ### Arguments:
 
@@ -45,7 +47,8 @@ You can use `sugarjazy` in multiple ways :
 usage: sugarjazy [-h] [--timeformat TIMEFORMAT]
                  [--regexp-highlight REGEXP_HIGHLIGHT]
                  [--disable-event-colouring] [--filter-level FILTER_LEVEL]
-                 [--stream] [--regexp-color REGEXP_COLOR] [--hide-timestamp]
+                 [--stream] [--kail] [--kail-prefix]
+                 [--regexp-color REGEXP_COLOR] [--hide-timestamp]
                  [files ...]
 
 positional arguments:
@@ -65,6 +68,9 @@ options:
   --filter-level FILTER_LEVEL, -F FILTER_LEVEL
                         filter levels separated by commas, eg: info,debug
   --stream, -s          wait for input stream
+  --kail, -k            assume streaming logs from kail
+                        (https://github.com/boz/kail)
+  --kail-prefix         wether to print the prefix when in kail mode
   --regexp-color REGEXP_COLOR
                         Regexp highlight color
   --hide-timestamp, -H  don't show timestamp
@@ -73,7 +79,8 @@ options:
 ## *`NOTE`*
 
 - Sugarjazy tries hard to identify the same event and add all events on the same colors to the chevron character ().
-- The json fields are not standardize. It works well with `knative` based controllers like `tekton` or others but that may be buggy for other ones.
+- The json fields are not standardize. It works well with `knative` based
+  controllers like `tekton` or others but that may be buggy for other ones.
 
 ## Copyright
 
