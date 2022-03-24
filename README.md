@@ -1,4 +1,4 @@
-[![codecov](https://codecov.io/gh/chmouel/sugarjazy/branch/main/graph/badge.svg)](https://codecov.io/gh/chmouel/sugarjazy) [![PyPI](https://badge.fury.io/py/sugarjazy.svg)](https://badge.fury.io/py/sugarjazy)  [![AUR](https://img.shields.io/aur/version/sugarjazy)](https://aur.archlinux.org/packages/sugarjazy) ![github workflow](https://github.com/chmouel/sugarjazy/actions/workflows/pylint.yml/badge.svg)
+[![codecov](https://codecov.io/gh/chmouel/sugarjazy/branch/main/graph/badge.svg)](https://codecov.io/gh/chmouel/sugarjazy) [![PyPI](https://badge.fury.io/py/sugarjazy.svg)](https://badge.fury.io/py/sugarjazy)  [![AUR](https://img.shields.io/aur/version/sugarjazy)](https://aur.archlinux.org/packages/sugarjazy) [![github workflow](https://github.com/chmouel/sugarjazy/actions/workflows/pylint.yml/badge.svg)](https://github.com/chmouel/sugarjazy/actions/workflows/pylint.yml)
 
 # sugarjazy - parse json logs nicely
 
