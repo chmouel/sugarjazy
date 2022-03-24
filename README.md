@@ -5,8 +5,8 @@ sugarjazy is a simple tool to parse json logs and output them in a nice format w
 Usually play nicely with <https://github.com/uber-go/zap> when using the
 ["Sugar"](https://pkg.go.dev/go.uber.org/zap#Logger.Sugar) logger output.
 
-As a [`tekton`](http://tekton.dev) developer this mostly fit tekton worfklow but
-works well with most knative package other logger that logs as json may need some tweaking.
+As a [`tekton`](http://tekton.dev) developer this works pretty well with tekton controllers and webhooks pods but
+the shoudld work as well with most knative package and other pods using go-uber/zap.
 
 ## Screenshot
 
