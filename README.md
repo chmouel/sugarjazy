@@ -48,8 +48,14 @@ You can use `sugarjazy` in multiple ways :
 - By streamining your logs: `kubectl logs -f podname|sugarjazy -s`
 - Or with the file (or multiples files) directly: `sugarjazy /tmp/file1.log /tmp/file2.log`
 - Using kail from https://github.com/boz/kail piping the output to `sugarjazy` with the `--kail` flag.
-  - By default the prefix of the pod/container will not be printed unless you specify
-    the option `--kail-prefix`.
+  - By default the prefix of the pod/container will be printed unless you specify
+    the option `--kail-no-prefix`.
+  - The prefix can be customized with `--kail-prefix-format` flag, the default template is :
+        `{namespace}/{pod}[{container}]`
+        If you want to see only the pod name you can simply do :
+
+        `--kail-prefix-format="[{pod}]"`
+
   - The `--kail` flags always assume `--stream` implicitely.
 
 ### Options
