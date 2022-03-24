@@ -68,9 +68,12 @@ You can use `sugarjazy` in multiple ways :
 ### Options
 
 ```shell
-usage: sugarjazy [-h] [--timeformat TIMEFORMAT] [--regexp-highlight REGEXP_HIGHLIGHT] [--disable-event-colouring]
-                 [--filter-level FILTER_LEVEL] [--stream] [--kail] [--kail-prefix] [--regexp-color REGEXP_COLOR]
-                 [--hide-timestamp]
+usage: sugarjazy [-h] [--timeformat TIMEFORMAT]
+                 [--regexp-highlight REGEXP_HIGHLIGHT]
+                 [--disable-event-colouring] [--filter-level FILTER_LEVEL]
+                 [--stream] [--kail] [--kail-no-prefix]
+                 [--kail-prefix-format KAIL_PREFIX_FORMAT]
+                 [--regexp-color REGEXP_COLOR] [--hide-timestamp]
                  [files ...]
 
 positional arguments:
@@ -79,17 +82,24 @@ positional arguments:
 options:
   -h, --help            show this help message and exit
   --timeformat TIMEFORMAT
-                        timeformat default only to the hour:minute:second. Use "%Y-%m-%d %H:%M:%S" if you want to add the year
+                        timeformat default only to the hour:minute:second. Use
+                        "%Y-%m-%d %H:%M:%S" if you want to add the year
   --regexp-highlight REGEXP_HIGHLIGHT, -r REGEXP_HIGHLIGHT
-                        Highlight a regexp in message, eg: "Failed:\s*\d+, Cancelled\s*\d+"
+                        Highlight a regexp in message, eg: "Failed:\s*\d+,
+                        Cancelled\s*\d+"
   --disable-event-colouring
-                        By default sugarjazy will try to add a ˃ char with a color to the eventid to easily identify which event
+                        By default sugarjazy will try to add a ˃ char with a
+                        color to the eventid to easily identify which event
                         belongs to which. Use this option to disable it.
   --filter-level FILTER_LEVEL, -F FILTER_LEVEL
                         filter levels separated by commas, eg: info,debug
   --stream, -s          wait for input stream
-  --kail, -k            assume streaming logs from kail (https://github.com/boz/kail)
-  --kail-prefix         wether to print the prefix of the pods/container when using the kail mode
+  --kail, -k            assume streaming logs from kail
+                        (https://github.com/boz/kail)
+  --kail-no-prefix      by default kail will print the prefix unless you
+                        specify this flag
+  --kail-prefix-format KAIL_PREFIX_FORMAT
+                        the template of the kail prefix.
   --regexp-color REGEXP_COLOR
                         Regexp highlight color
   --hide-timestamp, -H  don't show timestamp

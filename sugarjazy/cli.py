@@ -11,17 +11,18 @@ import sys
 
 try:
     import dateutil.parser as dtparse
-
     dtparseb = "store_true"
 except ImportError:
     dtparseb = "store_false"
+    dtparse = None
 
 DEFAULT_TIMEFORMAT = "%H:%M:%S"
 CURRENT_EVENT_CHAR = "˃"
 
 KAIL_PREFIX_REGEXP = re.compile(
-    r"^(?P<namespace>[^/]*)/(?P<pod>[^\[]*)\[(?P<container>[^\]]*)\]: (?P<line>.*)"
+    r"^(?P<namespace>[^/]*)/(?P<pod>[^\[]*)\[(?P<container>[^]]*)]: (?P<line>.*)"
 )
+
 
 # pylint: disable=too-few-public-methods
 class bcolors:
@@ -45,11 +46,11 @@ class bcolors:
         return f"\033[38;5;{color}m"
 
 
-def jline(line, argp):
+def jline(line: str, argp: argparse.Namespace) -> str:
     colors = {}
     kail_prefix = ""
     if not line.strip():
-        return
+        return ""
 
     if argp.kail:
         kail_re = KAIL_PREFIX_REGEXP.match(line)
@@ -64,23 +65,21 @@ def jline(line, argp):
         jeez = json.loads(line)
     except json.decoder.JSONDecodeError:
         if not argp.filter_level:
-            print(line)
+            return line
         return
 
     getkey = lambda x: jeez.get(x) and x
-
     key_level = getkey("severity") or getkey("level")
     if argp.filter_level:
         if not key_level:
-            return
+            return ""
         if jeez[key_level].lower() not in [
             x.lower() for x in argp.filter_level.split(",")
         ]:
-            return
+            return ""
     key_message = getkey("msg") or getkey("message")
     key_event = getkey("event") or getkey("knative.dev/key") or getkey("caller")
 
-    eventcolor = bcolors.ENDC
     chevent = ""
     if not argp.disable_event_colouring and key_event:
         if not jeez[key_event] in colors:
@@ -117,9 +116,7 @@ def jline(line, argp):
     kails = ""
     if argp.kail and kail_prefix and not argp.kail_no_prefix:
         kails = f" {bcolors.BLUE}{kail_prefix: <20}{bcolors.ENDC}"
-    print(
-        f"{color}{jeez[key_level].upper(): <7}{bcolors.ENDC} {chevent}{kails} {dts}{jeez[key_message]}"
-    )
+    return f"{color}{jeez[key_level].upper(): <7}{bcolors.ENDC} {chevent}{kails} {dts}{jeez[key_message]}"
 
 
 def stream(argp):
@@ -128,7 +125,7 @@ def stream(argp):
         while True:
             buff += sys.stdin.read(1)
             if buff.endswith("\n"):
-                jline(buff[:-1], argp)
+                print(jline(buff[:-1], argp))
                 buff = ""
     except KeyboardInterrupt:
         sys.stdout.flush()
@@ -136,7 +133,7 @@ def stream(argp):
 
 def parse(fp, argp):
     for line in fp.read().split("\n"):
-        jline(line, argp)
+        print(jline(line, argp))
 
 
 def args(sysargs: list) -> argparse.Namespace:
