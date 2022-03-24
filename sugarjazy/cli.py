@@ -14,7 +14,6 @@ try:
     dtparseb = "store_true"
 except ImportError:
     dtparseb = "store_false"
-    dtparse = None
 
 DEFAULT_TIMEFORMAT = "%H:%M:%S"
 CURRENT_EVENT_CHAR = "˃"
@@ -66,7 +65,7 @@ def jline(line: str, argp: argparse.Namespace) -> str:
     except json.decoder.JSONDecodeError:
         if not argp.filter_level:
             return line
-        return
+        return ""
 
     getkey = lambda x: jeez.get(x) and x
     key_level = getkey("severity") or getkey("level")
