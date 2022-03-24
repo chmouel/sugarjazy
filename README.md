@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/chmouel/sugarjazy/branch/main/graph/badge.svg)](https://codecov.io/gh/chmouel/sugarjazy)
+
 # sugarjazy - parse json logs nicely
 
 sugarjazy is a simple tool to parse json logs and output them in a nice format with nice colors.
