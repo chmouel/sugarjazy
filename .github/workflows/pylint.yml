@@ -19,7 +19,11 @@ jobs:
         poetry install -v
     - name: Test code
       run: |
-        poetry run pytest --cov sugarjazy --cov-fail-under 75
+        poetry run pytest --cov ./ --cov-report=xml --cov-fail-under 75
     - name: Lint code
       run: |
         poetry run pylint -r y sugarjazy
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        verbose: true
