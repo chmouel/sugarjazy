@@ -22,4 +22,4 @@ jobs:
         poetry run pytest -v
     - name: Lint code
       run: |
-        poetry run pylint -r y gnma
+        poetry run pylint -r y sugarjazy
