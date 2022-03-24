@@ -79,7 +79,6 @@ def jline(line: str, argp: argparse.Namespace) -> str:
             return ""
     key_message = getkey("msg") or getkey("message")
     key_event = getkey("event") or getkey("knative.dev/key") or getkey("caller")
-
     chevent = ""
     if not argp.disable_event_colouring and key_event:
         if not jeez[key_event] in colors:
