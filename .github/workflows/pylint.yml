@@ -1,4 +1,4 @@
-name: Pylint Checks
+name: Unit and Lint Checks
 
 on: [push, pull_request]
 
