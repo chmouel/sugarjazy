@@ -111,7 +111,7 @@ options:
 
 ## *`NOTE`*
 
-- Sugarjazy tries hard to identify the same event and add all events on the same colors to the chevron character ().
+- Sugarjazy tries hard to identify the same event and add all events on the same colors to the chevron character (˃).
 - The json fields are not standardize. It works well with `knative` based
   controllers like `tekton` or others but that may be buggy for other ones.
 
