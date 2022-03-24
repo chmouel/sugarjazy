@@ -11,6 +11,7 @@ import sys
 
 try:
     import dateutil.parser as dtparse
+
     dtparseb = "store_true"
 except ImportError:
     dtparseb = "store_false"
@@ -126,6 +127,8 @@ def stream(argp):
             if buff.endswith("\n"):
                 print(jline(buff[:-1], argp))
                 buff = ""
+            elif buff == "EOF":
+                break
     except KeyboardInterrupt:
         sys.stdout.flush()
 
@@ -135,7 +138,7 @@ def parse(fp, argp):
         print(jline(line, argp))
 
 
-def args(sysargs: list) -> argparse.Namespace:
+def parse_args(sysargs: list) -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--timeformat",
@@ -188,8 +191,8 @@ def args(sysargs: list) -> argparse.Namespace:
     return parser.parse_args(sysargs)
 
 
-def main():
-    aargp = args(sys.argv[1:])
+def main(args):
+    aargp = parse_args(args)
     if aargp.kail and aargp.files:
         print("kail mode only work on stream")
         sys.exit(1)
@@ -208,4 +211,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
