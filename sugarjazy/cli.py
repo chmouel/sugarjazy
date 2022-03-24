@@ -122,10 +122,11 @@ def jline(line, argp):
         else:
             dt = dtparse.parse(jeez[kt])
         dts = f'{bcolors.MAGENTA}{dt.strftime(argp.timeformat)}{bcolors.ENDC} '
+    kails = ''
     if argp.kail and argp.kail_prefix:
-        print(prefix)
+        kails = f" {bcolors.BLUE}{prefix: <20}{bcolors.ENDC}"
     print(
-        f"{color}{jeez[kl].upper(): <7}{bcolors.ENDC} {chevent} {dts}{jeez[km]}"
+        f"{color}{jeez[kl].upper(): <7}{bcolors.ENDC} {chevent}{kails} {dts}{jeez[km]}"
     )
 
 
@@ -176,13 +177,17 @@ def args(sysargs: list) -> argparse.Namespace:
                         action='store_true',
                         help="wait for input stream")
 
-    parser.add_argument("--kail",
-                        "-k",
-                        action='store_true',
-                        help="assume streaming logs from kail (https://github.com/boz/kail)")
-    parser.add_argument("--kail-prefix",
-                        action='store_true',
-                        help="wether to print the prefix of the pods/container when using the kail mode ")
+    parser.add_argument(
+        "--kail",
+        "-k",
+        action='store_true',
+        help="assume streaming logs from kail (https://github.com/boz/kail)")
+    parser.add_argument(
+        "--kail-prefix",
+        action='store_true',
+        help=
+        "wether to print the prefix of the pods/container when using the kail mode "
+    )
     parser.add_argument("--regexp-color",
                         default='CYAN',
                         help=r"Regexp highlight color")
