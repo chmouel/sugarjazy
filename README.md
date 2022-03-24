@@ -4,6 +4,22 @@ sugarjazy is a simple tool to parse json logs and output them in a nice format w
 
 Usually play nicely with <https://github.com/uber-go/zap> when using the ["Sugar"](https://pkg.go.dev/go.uber.org/zap#Logger.Sugar) logger output.
 
+## Screenshot
+
+![screenshot](./.github/screenshot.png)
+
+## Usage
+
+You can use `sugarjazy` in multiple ways :
+
+- By piping your logs: `kubectl logs podname|sugarjazy`
+- By streamining your logs: `kubectl logs -f podname|sugarjazy -s`
+- Or with the file (or multiples files) directly: `sugarjazy /tmp/file1.log /tmp/file2.log`
+- Using kail from https://github.com/boz/kail piping the output to `sugarjazy` with the `--kail` flag.
+  - By default the prefix of the pod/container will not be printed unless you specify
+    the option `--kail-prefix`.
+  - The `--kail` flags always assume `--stream` implicitely.
+
 ## Installation
 
 There is not many dependencies on this package but [`python-dateutil`](https://dateutil.readthedocs.io/en/stable/) is an optional dependency, if the package is not installed you will not be be able to show the log timestamps.
@@ -26,21 +42,15 @@ pip install --user sugarjazy
 
 (make sure $HOME/.local/bin is in your PATH)
 
-## Screenshot
+### git clone
 
-![screenshot](./.github/screenshot.png)
+you will need [poetry](https://python-poetry.org/) :
 
-## Usage
-
-You can use `sugarjazy` in multiple ways :
-
-- By piping your logs: `kubectl logs podname|sugarjazy`
-- By streamining your logs: `kubectl logs -f podname|sugarjazy -s`
-- Or with the file (or multiples files) directly: `sugarjazy /tmp/file1.log /tmp/file2.log`
-- Using kail from https://github.com/boz/kail piping the output to `sugarjazy` with the `--kail` flag.
-  - By default the prefix of the pod/container will not be printed unless you specify
-    the option `--kail-prefix`.
-  - The `--kail` flags always assume `--stream` implicitely.
+```
+git clone https://github.com/chmouel/sugarjazy
+cd sugarjazy
+poetry run sugarjazy
+```
 
 ### Arguments:
 
