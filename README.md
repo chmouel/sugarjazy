@@ -52,7 +52,7 @@ You can use `sugarjazy` in multiple ways :
     the option `--kail-prefix`.
   - The `--kail` flags always assume `--stream` implicitely.
 
-### Options:
+### Options
 
 ```shell
 usage: sugarjazy [-h] [--timeformat TIMEFORMAT] [--regexp-highlight REGEXP_HIGHLIGHT] [--disable-event-colouring]
