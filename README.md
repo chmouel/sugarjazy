@@ -1,4 +1,4 @@
-[![codecov](https://codecov.io/gh/chmouel/sugarjazy/branch/main/graph/badge.svg)](https://codecov.io/gh/chmouel/sugarjazy) | [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) | [[![PyPI version](https://badge.fury.io/py/sugarjazy.svg)](https://badge.fury.io/py/sugarjazy)
+[![codecov](https://codecov.io/gh/chmouel/sugarjazy/branch/main/graph/badge.svg)](https://codecov.io/gh/chmouel/sugarjazy) [![PyPI version](https://badge.fury.io/py/sugarjazy.svg)](https://badge.fury.io/py/sugarjazy)
 
 # sugarjazy - parse json logs nicely
 
