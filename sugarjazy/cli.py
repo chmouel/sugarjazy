@@ -190,7 +190,9 @@ def parse_args(sysargs: list) -> argparse.Namespace:
     return parser.parse_args(sysargs)
 
 
-def main(args):
+def main(args=None):
+    if not args:
+        args = sys.argv[1:]
     aargp = parse_args(args)
     if aargp.kail and aargp.files:
         print("kail mode only work on stream")

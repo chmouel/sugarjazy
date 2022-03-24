@@ -19,13 +19,13 @@ include = [
 
 [tool.poetry.dependencies]
 python = "^3.6"
-pytest-cov = "^3.0.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 python-dateutil = "^2.8.0"
 pylint = "*"
 mypy = "^0.942"
+pytest-cov = "^3.0.0"
 
 [tool.poetry.scripts]
 sugarjazy = "sugarjazy.cli:main"
