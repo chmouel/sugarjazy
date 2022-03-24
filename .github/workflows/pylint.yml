@@ -19,7 +19,7 @@ jobs:
         poetry install -v
     - name: Test code
       run: |
-        poetry run pytest -v
+        poetry run pytest --cov sugarjazy --cov-fail-under 60
     - name: Lint code
       run: |
         poetry run pylint -r y sugarjazy
