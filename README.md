@@ -54,7 +54,7 @@ You can use `sugarjazy` in multiple ways :
 - By piping your logs: `kubectl logs podname|sugarjazy`
 - By streamining your logs: `kubectl logs -f podname|sugarjazy -s`
 - Or with the file (or multiples files) directly: `sugarjazy /tmp/file1.log /tmp/file2.log`
-- Using kail from https://github.com/boz/kail piping the output to `sugarjazy` with the `--kail` flag.
+- Using kail from https://github.com/boz/kail piping the output to `sugarjazy` with the `--kail` flag. The advantage of `kail` is to be able to get the logs from multiple pods and watching new events as they appears. 
   - By default the prefix of the pod/container will be printed unless you specify
     the option `--kail-no-prefix`.
   - The prefix can be customized with `--kail-prefix-format` flag, the default template is :
