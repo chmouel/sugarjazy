@@ -50,7 +50,5 @@ git tag -s ${VERSION} -m "Releasing version ${VERSION}"
 git push --tags origin ${VERSION}
 git push origin main
 poetry build -f sdist
-gh release create ${VERSION} ./dist/${PKGNAME}-${VERSION}.tar.gz
+gh release create ${VERSION} --notes "Release ${VERSION} 🥳" ./dist/${PKGNAME}-${VERSION}.tar.gz
 poetry publish -u __token__ -p $(pass show pypi/token)
-
-./packaging/aur/build.sh
