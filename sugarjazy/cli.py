@@ -163,7 +163,7 @@ def args(sysargs: list) -> argparse.Namespace:
         "--disable-event-colouring",
         action='store_true',
         help=
-        "Add a  with a color to the eventid to easily identify which event belongs to which"
+        f"By default sugarjazy will try to add a {CURRENT_EVENT_CHAR} char with a color to the eventid to easily identify which event belongs to which. Use this option to disable it."
     )
 
     parser.add_argument(

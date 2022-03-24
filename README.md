@@ -39,17 +39,15 @@ You can use `sugarjazy` in multiple ways :
 - Or with the file (or multiples files) directly: `sugarjazy /tmp/file1.log /tmp/file2.log`
 - Using kail from https://github.com/boz/kail piping the output to `sugarjazy` with the `--kail` flag.
   - By default the prefix of the pod/container will not be printed unless you specify
-    the option `--kail-prefix`. 
+    the option `--kail-prefix`.
   - The `--kail` flags always assume `--stream` implicitely.
 
 ### Arguments:
 
 ```shell
-usage: sugarjazy [-h] [--timeformat TIMEFORMAT]
-                 [--regexp-highlight REGEXP_HIGHLIGHT]
-                 [--disable-event-colouring] [--filter-level FILTER_LEVEL]
-                 [--stream] [--kail] [--kail-prefix]
-                 [--regexp-color REGEXP_COLOR] [--hide-timestamp]
+usage: sugarjazy [-h] [--timeformat TIMEFORMAT] [--regexp-highlight REGEXP_HIGHLIGHT] [--disable-event-colouring]
+                 [--filter-level FILTER_LEVEL] [--stream] [--kail] [--kail-prefix] [--regexp-color REGEXP_COLOR]
+                 [--hide-timestamp]
                  [files ...]
 
 positional arguments:
@@ -58,20 +56,17 @@ positional arguments:
 options:
   -h, --help            show this help message and exit
   --timeformat TIMEFORMAT
-                        timeformat default only to the hour:minute:second. Use
-                        "%Y-%m-%d %H:%M:%S" if you want to add the year
+                        timeformat default only to the hour:minute:second. Use "%Y-%m-%d %H:%M:%S" if you want to add the year
   --regexp-highlight REGEXP_HIGHLIGHT, -r REGEXP_HIGHLIGHT
-                        Highlight a regexp in message, eg: "Failed:\s*\d+,
-                        Cancelled\s*\d+"
+                        Highlight a regexp in message, eg: "Failed:\s*\d+, Cancelled\s*\d+"
   --disable-event-colouring
-                        Add a  with a color to the eventid to easily identify
-                        which event belongs to which
+                        By default sugarjazy will try to add a ˃ char with a color to the eventid to easily identify which event
+                        belongs to which. Use this option to disable it.
   --filter-level FILTER_LEVEL, -F FILTER_LEVEL
                         filter levels separated by commas, eg: info,debug
   --stream, -s          wait for input stream
-  --kail, -k            assume streaming logs from kail
-                        (https://github.com/boz/kail)
-  --kail-prefix         wether to print the prefix when in kail mode
+  --kail, -k            assume streaming logs from kail (https://github.com/boz/kail)
+  --kail-prefix         wether to print the prefix of the pods/container when using the kail mode
   --regexp-color REGEXP_COLOR
                         Regexp highlight color
   --hide-timestamp, -H  don't show timestamp
