@@ -1,4 +1,4 @@
-[![codecov](https://codecov.io/gh/chmouel/sugarjazy/branch/main/graph/badge.svg)](https://codecov.io/gh/chmouel/sugarjazy) [![PyPI version](https://badge.fury.io/py/sugarjazy.svg)](https://badge.fury.io/py/sugarjazy)
+[![codecov](https://codecov.io/gh/chmouel/sugarjazy/branch/main/graph/badge.svg)](https://codecov.io/gh/chmouel/sugarjazy) [![PyPI version](https://badge.fury.io/py/sugarjazy.svg)](https://badge.fury.io/py/sugarjazy) ![github workflow](https://github.com/chmouel/sugarjazy/actions/workflows/pylint.yml/badge.svg)
 
 # sugarjazy - parse json logs nicely
 
