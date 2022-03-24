@@ -6,7 +6,14 @@ Usually play nicely with <https://github.com/uber-go/zap> when using the ["Sugar
 
 ## Screenshot
 
+### Default
+
 ![screenshot](./.github/screenshot.png)
+
+### Stream from kail with sugarjazy
+
+https://user-images.githubusercontent.com/98980/159916310-fabaa48e-b92a-4a41-a935-a1cb2a31e8fe.mp4
+
 
 ## Installation
 
