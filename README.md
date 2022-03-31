@@ -117,6 +117,11 @@ options:
 - The json fields are not standardize. It works well with `knative` based
   controllers like `tekton` or others but that may be buggy for other ones.
 
+## FAQ
+
+**QUESTION**: sugarjazy is along word to type and why did the name anyway?
+**ANSWER**: I agree! and that's why I alias it with `alias sj=sugarjazy` or even better I have zsh [global alias](https://vonheikemen.github.io/devlog/tools/zsh-global-aliases/) `alias -g SJ=|` sugarjazy -s' to avoid even more typing.
+
 ## Copyright
 
 [Apache-2.0](./LICENSE)
