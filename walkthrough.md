@@ -1,4 +1,4 @@
-# Sugarjazy walkthru
+# Sugarjazy walkthrough
 
 Log: <https://github.com/chmouel/sugarjazy>
 Installable with pip: `pip3 install -U sugarjazy`
