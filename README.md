@@ -71,6 +71,8 @@ You can use `sugarjazy` in multiple ways :
 
   - The `--kail` flags always assume `--stream` implicitely.
 
+See walkthrough documentation [here](./walkthrough.md)
+
 ### Options
 
 ```shell
