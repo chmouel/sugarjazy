@@ -70,16 +70,25 @@ def jline(line: str, argp: argparse.Namespace) -> str:
 
     getkey = lambda x: jeez.get(x) and x
     key_level = getkey("severity") or getkey("level")
+
+    if not key_level:
+        return line
+
     if argp.filter_level:
         if not key_level:
             return ""
         if jeez[key_level].lower() not in [
-            x.lower() for x in argp.filter_level.split(",")
+                x.lower() for x in argp.filter_level.split(",")
         ]:
             return ""
     key_message = getkey("msg") or getkey("message")
-    key_event = getkey("event") or getkey("knative.dev/key") or getkey("caller")
+    key_event = getkey("event") or getkey("knative.dev/key") or getkey(
+        "caller")
     chevent = ""
+
+    if not key_message:
+        return
+
     if not argp.disable_event_colouring and key_event:
         if not jeez[key_event] in colors:
             colors[jeez[key_event]] = bcolors.random256()
@@ -96,9 +105,8 @@ def jline(line: str, argp: argparse.Namespace) -> str:
     kt = getkey("ts") or getkey("timeformat") or getkey("timestamp")
     if key_level and jeez[key_level].lower() == "info":
         color = bcolors.GREEN
-    elif key_level and (
-        jeez[key_level].lower() == "warning" or jeez[key_level].lower() == "warn"
-    ):
+    elif key_level and (jeez[key_level].lower() == "warning"
+                        or jeez[key_level].lower() == "warn"):
         color = bcolors.YELLOW
     elif key_level and jeez[key_level].lower() == "error":
         color = bcolors.RED
@@ -142,26 +150,31 @@ def parse_args(sysargs: list) -> argparse.Namespace:
     parser.add_argument(
         "--timeformat",
         default=DEFAULT_TIMEFORMAT,
-        help='timeformat default only to the hour:minute:second. Use "%%Y-%%m-%%d %%H:%%M:%%S" if you want to add the year',
+        help=
+        'timeformat default only to the hour:minute:second. Use "%%Y-%%m-%%d %%H:%%M:%%S" if you want to add the year',
     )
     parser.add_argument(
         "--regexp-highlight",
         "-r",
-        help=r'Highlight a regexp in message, eg: "Failed:\s*\d+, Cancelled\s*\d+"',
+        help=
+        r'Highlight a regexp in message, eg: "Failed:\s*\d+, Cancelled\s*\d+"',
     )
     parser.add_argument(
         "--disable-event-colouring",
         action="store_true",
-        help=f"By default sugarjazy will try to add a {CURRENT_EVENT_CHAR} char with a color to the eventid to easily identify which event belongs to which. Use this option to disable it.",
+        help=
+        f"By default sugarjazy will try to add a {CURRENT_EVENT_CHAR} char with a color to the eventid to easily identify which event belongs to which. Use this option to disable it.",
     )
 
     parser.add_argument(
-        "--filter-level", "-F", help="filter levels separated by commas, eg: info,debug"
-    )
+        "--filter-level",
+        "-F",
+        help="filter levels separated by commas, eg: info,debug")
 
-    parser.add_argument(
-        "--stream", "-s", action="store_true", help="wait for input stream"
-    )
+    parser.add_argument("--stream",
+                        "-s",
+                        action="store_true",
+                        help="wait for input stream")
 
     parser.add_argument(
         "--kail",
@@ -172,7 +185,8 @@ def parse_args(sysargs: list) -> argparse.Namespace:
     parser.add_argument(
         "--kail-no-prefix",
         action="store_true",
-        help="by default kail will print the prefix unless you specify this flag",
+        help=
+        "by default kail will print the prefix unless you specify this flag",
     )
     parser.add_argument(
         "--kail-prefix-format",
@@ -180,12 +194,13 @@ def parse_args(sysargs: list) -> argparse.Namespace:
         help="the template of the kail prefix.",
     )
 
-    parser.add_argument(
-        "--regexp-color", default="CYAN", help=r"Regexp highlight color"
-    )
-    parser.add_argument(
-        "--hide-timestamp", "-H", action=dtparseb, help="don't show timestamp"
-    )
+    parser.add_argument("--regexp-color",
+                        default="CYAN",
+                        help=r"Regexp highlight color")
+    parser.add_argument("--hide-timestamp",
+                        "-H",
+                        action=dtparseb,
+                        help="don't show timestamp")
     parser.add_argument("files", nargs="*", default="")
     return parser.parse_args(sysargs)
 
