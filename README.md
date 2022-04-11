@@ -33,6 +33,18 @@ You can install it [from aur](https://aur.archlinux.org/packages/sugarjazy) with
 yay -S sugarjazy
 ```
 
+### Nix
+
+This is publish as a "[flake](https://github.com/NixOS/rfcs/pull/49)"
+and thus can be used with recent version of `nix` as following:
+
+```
+nix run github:chmouel/sugarjazy -- [flags]
+```
+
+*Note: `nix flake` is still an experimental command and might not be
+available on all supported nixos version.*
+
 ### pip
 
 With pip from pypi - <https://pypi.org/project/sugarjazy/>
