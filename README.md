@@ -121,8 +121,8 @@ options:
 
 ## FAQ
 
-**QUESTION**: sugarjazy is along word to type and why did the name anyway?
-**ANSWER**: I agree! and that's why I alias it with `alias sj=sugarjazy` or even better I have zsh [global alias](https://vonheikemen.github.io/devlog/tools/zsh-global-aliases/) `alias -g SJ=|` sugarjazy -s' to avoid even more typing.
+- sugarjazy is along word to type and why did the name anyway?
+  - : I agree! and that's why I alias it with `alias sj=sugarjazy` or even better I have zsh [global alias](https://vonheikemen.github.io/devlog/tools/zsh-global-aliases/) `alias -g SJ=| sugarjazy -s` to avoid even more typing.
 
 ## Copyright
 
