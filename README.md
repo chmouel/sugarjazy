@@ -43,6 +43,12 @@ pip install --user sugarjazy
 
 (make sure $HOME/.local/bin is in your PATH)
 
+### with docker/podman
+
+```
+docker run ghcr.io/chmouel/sugarjazy:main
+```
+
 ### git clone
 
 you will need [poetry](https://python-poetry.org/) :
