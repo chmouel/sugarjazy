@@ -48,7 +48,7 @@ sed -i "s/^version = .*/version = \"${VERSION}\"/" ${vfile}
 git commit -S -m "Release ${VERSION} 🥳" ${vfile} || true
 git tag -s ${VERSION} -m "Releasing version ${VERSION}"
 git push --tags origin ${VERSION}
-git push origin main
+git push origin main --no-verify
 poetry build -f sdist
 gh release create ${VERSION} --notes "Release ${VERSION} 🥳" ./dist/${PKGNAME}-${VERSION}.tar.gz
 poetry publish -u __token__ -p $(pass show pypi/token)
