@@ -1,4 +1,4 @@
-name: Unit and Lint Checks
+name: Python quality
 
 on: [push, pull_request]
 
@@ -8,27 +8,16 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
-    - uses: pre-commit/action@v2.0.3
-      with:
-        extra_args: --show-diff-on-failure --color=always --all-files --hook-stage=push
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: Set up Python
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.9
     - name: Install poetry pylint
       run: |
         pip3 install --upgrade poetry
         poetry install -v
-    - name: Test code
+    - uses: pre-commit/action@v2.0.3
+      with:
+        extra_args: --show-diff-on-failure --color=always --all-files --hook-stage=push
+    - name: Generate code coverage
       run: |
         poetry run pytest --cov ./ --cov-report=xml --cov-fail-under 75
-    - name: Lint code
-      run: |
-        poetry run pylint -r y sugarjazy
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
       with:
