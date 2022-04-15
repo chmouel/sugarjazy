@@ -35,7 +35,7 @@ repos:
      language: system
      stages: ["push"]
    - id: system
-     name: Pylint
+     name: Pytest
      entry: poetry run pytest
      pass_filenames: false
      language: system
