@@ -210,7 +210,7 @@ class Sugarjazy:
         return f"{color}{jeez[key_level].upper(): <7}{bcolors.ENDC} {chevent}{kails} {dts}{jeez[key_message]}"
 
 
-def main(sysargs: typing.Union[None, list]):
+def main(sysargs: typing.Union[None, list] = None):
     SJ = Sugarjazy(sysargs)
     SJ.main()
 
