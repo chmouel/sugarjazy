@@ -9,8 +9,8 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
     - uses: pre-commit/action@v2.0.3
-    with:
-      extra_args: --show-diff-on-failure --color=always --all-files --hook-stage=push
+      with:
+        extra_args: --show-diff-on-failure --color=always --all-files --hook-stage=push
   build:
     runs-on: ubuntu-latest
     steps:
