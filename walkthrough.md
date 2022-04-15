@@ -4,39 +4,39 @@
 ## Default log view (beurk)
 
 ```bash
-oc logs deployment/openshift-pipelines-operator -n openshift-operators
+kubectl logs deployment/openshift-pipelines-operator -n openshift-operators
 ```
 
 ## Log viewing with sugarjazy (yay)
 
 ```bash
-oc logs deployment/openshift-pipelines-operator -n openshift-operators | sugarjazy
+kubectl logs deployment/openshift-pipelines-operator -n openshift-operators | sugarjazy
 ```
 
 ## Stream log vieweing
 
 ```bash
-oc logs deployment/openshift-pipelines-operator -n openshift-operators | sugarjazy -s
+kubectl logs deployment/openshift-pipelines-operator -n openshift-operators | sugarjazy -s
 ```
 
 
 ## Filter levels
 
 ```bash
-oc logs deployment/openshift-pipelines-operator -n openshift-operators | sugarjazy --filter-level error
+kubectl logs deployment/openshift-pipelines-operator -n openshift-operators | sugarjazy --filter-level error
 ```
 
 ## Filter multiple levels
 
 ```bash
-oc logs deployment/openshift-pipelines-operator -n openshift-operators | sugarjazy --filter-level debug,error
+kubectl logs deployment/openshift-pipelines-operator -n openshift-operators | sugarjazy --filter-level debug,error
 ```
 
 
 ## Syntax highlighting
 
 ```bash
-oc logs deployment/openshift-pipelines-operator -n openshift-operators | sugarjazy -r "TektonConfig"
+kubectl logs deployment/openshift-pipelines-operator -n openshift-operators | sugarjazy -r "TektonConfig"
 ```
 
 ## Kail
