@@ -2,6 +2,7 @@ import datetime
 import io
 
 import pytest
+
 from sugarjazy import cli
 
 sampleline = """{"level":"info","ts":"2022-03-24T13:44:02.851Z","logger":"tekton-pipelines-webhook", "msg":"bar FOO hello", "event": "firstev"}"""

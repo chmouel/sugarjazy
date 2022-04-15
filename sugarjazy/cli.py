@@ -112,7 +112,7 @@ class Sugarjazy:
 
         if self.argp.kail and self.argp.files:
             raise SugarJazyBadArgumentExc("kail mode only work on stream")
-        elif self.argp.kail:
+        if self.argp.kail:
             self.argp.stream = True
 
     def main(self):
@@ -128,6 +128,7 @@ class Sugarjazy:
 
         self.do_fp(sys.stdin)
 
+    # pylint: disable=too-many-return-statements
     def parse(self, line: str) -> str:
         colors = {}
         kail_prefix = ""
@@ -215,4 +216,4 @@ def main(sysargs: typing.Union[None, list]):
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[0:])
