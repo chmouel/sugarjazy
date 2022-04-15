@@ -43,7 +43,7 @@ pip install --user sugarjazy
 
 (make sure $HOME/.local/bin is in your PATH)
 
-### with docker/podman
+### Docker
 
 ```
 docker run ghcr.io/chmouel/sugarjazy:main
