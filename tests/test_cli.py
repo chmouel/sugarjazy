@@ -43,7 +43,7 @@ def test_not_json():
     assert f == "NOT JSON"
 
 
-def test_skip_filtered():
+def test_skip_when_filtered():
     argp = cli.parse_args(sysargs=["-F=donotfilter"])
     f = cli.jline(sampleline, argp)
     assert f == ""
@@ -56,6 +56,13 @@ def test_skip_filtered():
     argp = cli.parse_args(sysargs=["-F=info"])
     f = cli.jline("FOOBAR", argp)
     assert f == ""
+
+
+def test_no_keys_no_parsing():
+    argp = cli.parse_args(sysargs=[])
+    sample = """{"foo":"info","ts":"2022-03-24T13:44:02.851Z","logger":"tekton-pipelines-webhook", "msg":"bar FOO hello"}"""
+    f = cli.jline(sample, argp)
+    assert f == sample
 
 
 def test_kail():
