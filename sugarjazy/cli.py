@@ -3,10 +3,10 @@
 import argparse
 import datetime
 import json
+import random
 import re
 import sys
 import typing
-import random
 
 DEFAULT_TIMEFORMAT = "%H:%M:%S"
 CURRENT_EVENT_CHAR = "˃"
@@ -35,6 +35,7 @@ class bcolors:
     def random256() -> str:
         color = random.randint(0o22, 0o231)
         return f"\033[38;5;{color}m"
+
 
 DTPARSEB = "store_false"
 try:
