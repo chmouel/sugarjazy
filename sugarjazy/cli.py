@@ -81,7 +81,12 @@ class Sugarjazy:
         )
 
         parser.add_argument(
-            "--stream", "-s", action="store_true", help="wait for input stream"
+            "--stream",
+            "-s",
+            "-f",
+            "--follow",
+            action="store_true",
+            help="wait for input stream",
         )
 
         parser.add_argument(

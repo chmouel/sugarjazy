@@ -58,7 +58,7 @@ poetry run sugarjazy
 You can use `sugarjazy` in multiple ways :
 
 - By piping your logs: `kubectl logs podname|sugarjazy`
-- By streamining your logs: `kubectl logs -f podname|sugarjazy -s`
+- By streamining your logs: `kubectl logs -f podname|sugarjazy -f`
 - Directly to a file (or multiples files): `sugarjazy /tmp/file1.log /tmp/file2.log`
 - Using kail from https://github.com/boz/kail piping the output to `sugarjazy` with the `--kail` flag. The advantage of `kail` is to be able to get the logs from multiple pods and watching new events as they appears.
   - By default the prefix of the pod/container will be printed unless you specify
@@ -69,7 +69,7 @@ You can use `sugarjazy` in multiple ways :
 
         `--kail-prefix-format="[{pod}]"`
 
-  - The `--kail` flags always assume `--stream` implicitely.
+  - The `--kail` flags always assume `--follow` implicitely.
 
 See walkthrough documentation [here](./walkthrough.md)
 
@@ -101,7 +101,8 @@ options:
                         belongs to which. Use this option to disable it.
   --filter-level FILTER_LEVEL, -F FILTER_LEVEL
                         filter levels separated by commas, eg: info,debug
-  --stream, -s          wait for input stream
+  --stream, -s, -f, --follow
+                        wait for input stream
   --kail, -k            assume streaming logs from kail
                         (https://github.com/boz/kail)
   --kail-no-prefix      by default kail will print the prefix unless you
