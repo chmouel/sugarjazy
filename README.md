@@ -1,3 +1,5 @@
+# Now archived and moved onto a rust implementation of this tool called: [snazy](https://github.com/snazy)
+
 [![codecov](https://codecov.io/gh/chmouel/sugarjazy/branch/main/graph/badge.svg)](https://codecov.io/gh/chmouel/sugarjazy) [![PyPI](https://badge.fury.io/py/sugarjazy.svg)](https://badge.fury.io/py/sugarjazy)  [![AUR](https://img.shields.io/aur/version/sugarjazy)](https://aur.archlinux.org/packages/sugarjazy) [![github workflow](https://github.com/chmouel/sugarjazy/actions/workflows/pylint.yaml/badge.svg)](https://github.com/chmouel/sugarjazy/actions/workflows/pylint.yaml)  [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
 # sugarjazy - parse json logs nicely
